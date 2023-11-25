@@ -21,9 +21,7 @@ public class FileManagement {
     public static String insertAbsence(Absence absence) {
         try (FileWriter myWriter = new FileWriter(FileName, true)) {
             myWriter.write("Student ID: " + absence.getStudent().id
-                    + ", Absence Date: " + absence.getDate()
-                    + ", Excuse Reason: " + absence.getExcuse().getExcuseReason()
-                    + ", Excuse ID: " + absence.getExcuseId() + "\n");
+                    + ", Absence Date: " + absence.getDate()+ "\n");
             return "Absence added successfully for student: " + absence.getStudent().F_name + " " + absence.getStudent().L_name;
         } catch (IOException e) {
             e.printStackTrace();
