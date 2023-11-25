@@ -38,8 +38,19 @@ public class FileManagement {
     }
 
     public static String insertExcuse(Excuse excuse, Absence absence) {
+        try (FileWriter myWriter = new FileWriter(FileName, true)) {
+            // Writing excuse details to the file
+            myWriter.write("Absence ID: " + absence.getId()
+                    + ", Excuse Reason: " + excuse.getReason()
+                    + ", Excuse Status: " + excuse.getStatus()
+                    + ", Date: " + absence.getDate() + "\n");
+            return "Excuse added successfully for Absence ID: " + absence.getId();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Failed to add excuse!";
+        }
 
-        return null;
+        //return null;
 
     }
 
