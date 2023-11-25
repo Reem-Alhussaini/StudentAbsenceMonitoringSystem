@@ -24,16 +24,19 @@ public class Admin extends User {
         System.out.println("Reason for absence: " + excuse.getReason());
         System.out.println("Current status: " + excuse.getStatus());
 
-        // Step 4: Prompt admin to enter the evaluation of the excuse
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter evaluation (accepted/rejected): ");
-        String newStatus = scanner.nextLine();
+        // update the excuse status "only if" the excuse was not evaluated yet
+        if(excuse.getStatus() == "waiting foe evaluation"){
+            // Step 4: Prompt admin to enter the evaluation of the excuse
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter evaluation (accepted/rejected): ");
+            String newStatus = scanner.nextLine();
 
-        // Step 5: Call updateStatus method from FileManagement class
-        FileManagement.updateStatus(newStatus, absenceID);
+            // Step 5: Call updateStatus method from FileManagement class
+            FileManagement.updateStatus(newStatus, absenceID);
 
-        // Step 6: Receive message that the status was updated successfully
-        System.out.println("Excuse status updated successfully.");
+            // Step 6: Receive message that the status was updated successfully
+            System.out.println("Excuse status updated successfully.");
+        }
     }
 }
 

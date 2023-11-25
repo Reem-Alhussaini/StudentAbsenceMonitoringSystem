@@ -47,18 +47,8 @@ public class Absence {
         this.student = student;
         this.execuse = execuse;
     }
-
-    public void getStudentInfo() {
-        Scanner in = new Scanner(System.in);
-        System.out.print("Enter Student first name:");
-        String fname = in.next();
-        System.out.print("Enter Student last name:");
-        String lname = in.next();
-        System.out.print("Enter Student ID:");
-        String id = in.next();
-
-        Student student = new Student(fname, lname, id);
-    }
+    //reem: moved getStudentInfo()to Student class
+    
 
     public void getAbsenceInfo(Student student) {
         id++;
