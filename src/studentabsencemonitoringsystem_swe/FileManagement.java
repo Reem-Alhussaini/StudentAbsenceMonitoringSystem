@@ -37,15 +37,13 @@ public class FileManagement {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String insertExcuse(//excuse,Absence absence
-            ) {
+    public static String insertExcuse(Excuse excuse, Absence absence) {
 
         return null;
 
     }
 
-    public String getStudentAbsenceID(//StudentID,date
-            ) {
+    public static Absence getStudentAbsenceID(String studentID, String date) {
 
         return null;
 
