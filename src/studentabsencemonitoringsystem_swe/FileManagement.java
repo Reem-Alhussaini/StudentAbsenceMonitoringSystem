@@ -29,6 +29,14 @@ public class FileManagement {
         }
     }
 
+    static void updateStatus(String newStatus, int absenceID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static Excuse extractExcuse(Absence absence) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public String insertExcuse(//excuse,Absence absence
             ) {
 
