@@ -7,7 +7,7 @@ public class Parent extends User {
         super(F_name, L_name, id);
     }
     
-    public void submitExcuse() {
+    public static void submitExcuse() {
         Scanner scanner = new Scanner(System.in);
 
         // Prompt the parent to enter the student ID, reason for absence, and date of absence
