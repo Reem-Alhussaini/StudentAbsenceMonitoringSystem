@@ -1,13 +1,25 @@
 package studentabsencemonitoringsystem_swe;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
+//made a static counter to increment the id 
 public class Absence {
 
     private String Date;
-    private int id = 0;
+    private static int counter = 0;
+    private int id;
     private Student student;
-    private Excuse execuse;
+    private Excuse excuse;
+    public static ArrayList<Absence> absences;
+
+    //removed id from constructor 
+    public Absence(Student student, String Date, Excuse excuse) {
+        this.Date = Date;
+        this.id = counter++;
+        this.student = student;
+        this.excuse = excuse;
+    }
 
     public void setDate(String Date) {
         this.Date = Date;
@@ -21,8 +33,8 @@ public class Absence {
         this.student = student;
     }
 
-    public void setExecuse(Excuse execuse) {
-        this.execuse = execuse;
+    public void setExcuse(Excuse excuse) {
+        this.excuse = excuse;
     }
 
     public String getDate() {
@@ -37,26 +49,31 @@ public class Absence {
         return student;
     }
 
-    public Excuse getExecuse() {
-        return execuse;
+    public Excuse getExcuse() {
+        return excuse;
     }
-
-    public Absence(Student student, String Date, Excuse execuse, int id) {
-        this.Date = Date;
-        this.id = id;
-        this.student = student;
-        this.execuse = execuse;
-    }
-    //reem: moved getStudentInfo()to Student class
-    
-
-    public void getAbsenceInfo(Student student) {
-        id++;
+//-----------------------------------------------------------------------------
+    public static Absence getAbsenceInfo(Student student) {
         Scanner in = new Scanner(System.in);
         System.out.print("Enter absence Date:");
         String date = in.next();
 
-        Absence absence = new Absence(student, date, null, id);
-        Admin.registerAbsence(absence, student);
+        in.close();
+        Absence absence = new Absence(student, date, null);   
+        absences.add(absence);
+        return absence;
     }
+//-----------------------------------------------------------------------------
+    public static Absence getAbsenceViaAbsenceID(int id){
+        for(int i = 0; i < absences.size(); i++){
+            if(id == absences.get(i).getId()){
+                return absences.get(i);
+            }
+            else{
+                System.out.println("invalid id number");
+            }
+        }
+        return null;
+    }
+
 }

@@ -2,11 +2,17 @@ package studentabsencemonitoringsystem_swe;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 
+//deleted updateStatus 
+    //deleted extractExcuse
+
+    
 public class FileManagement {
 
     private static final String FileName = "attendance.txt";//change in class
 
+    //insert functions---------------------------------------------------------------------------------------------------------
     public static String insertStudent(Student student) {
         try (FileWriter myWriter = new FileWriter(FileName, true)) {
             myWriter.write("Student ID: " + student.getId()
@@ -17,7 +23,7 @@ public class FileManagement {
             return "Failed to add student!";
         }
     }
-
+    //--------------------------------------------------------------------------------------------------------------------------
     public static String insertAbsence(Absence absence) {
         try (FileWriter myWriter = new FileWriter(FileName, true)) {
             myWriter.write("Student ID: " + absence.getStudent().id
@@ -28,15 +34,7 @@ public class FileManagement {
             return "Failed to add absence!";
         }
     }
-
-    static void updateStatus(String newStatus, int absenceID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    static Excuse extractExcuse(Absence absence) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    //--------------------------------------------------------------------------------------------------------------------------
     public static String insertExcuse(Excuse excuse, Absence absence) {
         try (FileWriter myWriter = new FileWriter(FileName, true)) {
             // Writing excuse details to the file
@@ -52,18 +50,22 @@ public class FileManagement {
 
         //return null;
     }
-
+    //end of insert functions--------------------------------------------------------------------------------------------------
+    
     public static Absence getStudentAbsenceID(String studentID, String date) {
 
         return null;
 
     }
 
-    public String updateStatus(//excuse,absenceID
-            ) {
-
-        return null;
-
+    //----------------------------------------------------------------------------------
+    public static void displayExcuses(Date date){
+        //search in file using the date with a for loop
+        // if(date == date in file && status == "waiting for evaluation") 
+        //display the date, id, reason
     }
+    //----------------------------------------------------------------------------------
+    
+
 
 }

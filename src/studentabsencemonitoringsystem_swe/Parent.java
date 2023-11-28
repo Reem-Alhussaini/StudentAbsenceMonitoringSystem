@@ -19,7 +19,7 @@ public class Parent extends User {
         String date = scanner.nextLine();
 
         // Create an Excuse object
-        Excuse excuse = new Excuse(reason, "needs evaluation");
+        Excuse excuse = new Excuse(reason, "waiting for evaluation");
 
         // Call FileManagement to get the Absence object
         Absence absence = FileManagement.getStudentAbsenceID(studentID, date);
@@ -34,6 +34,8 @@ public class Parent extends User {
         } else {
             System.out.println("No absence found for the provided details.");
         }
+
+        scanner.close();
     }
 
 }
