@@ -1,6 +1,5 @@
 package studentabsencemonitoringsystem_swe;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Parent extends User {
 
@@ -8,35 +7,41 @@ public class Parent extends User {
         super(F_name, L_name, id);
     }
     
-    public static void submitExcuse() throws IOException {
-        Scanner scanner = new Scanner(System.in);
+    public static void submitExcuse(String studentID, String date, String reason) throws IOException { //COMPLETED
 
-        // Prompt the parent to enter the student ID, reason for absence, and date of absence
-        System.out.print("Enter Student ID: ");
-        String studentID = scanner.nextLine();
-        System.out.print("Enter the reason for the absence: ");
-        String reason = scanner.nextLine();
-        System.out.print("Enter the date of absence (e.g., 2023-11-25): ");
-        String date = scanner.nextLine();
+        //find the absence assoiciated with the student id and date
+        Absence absence = FileManagement.getAbsenceIDviaStudentID(studentID, date);
 
-        // Create an Excuse object
-        Excuse excuse = new Excuse(reason, "waiting for evaluation");
-
-        // Call FileManagement to get the Absence object
-        Absence absence = FileManagement.getStudentAbsenceID(studentID, date);
-
-        // Check if absence is found
+        // Check if absence was found
         if (absence != null) {
             // Insert the excuse into the Absence object and store it in the Attendance file
-            String message = FileManagement.insertExcuse(excuse, absence);
+            String message = FileManagement.insertExcuse(absence.getExcuse(), absence);
 
             // Display the message
             System.out.println(message);
         } else {
             System.out.println("No absence found for the provided details.");
         }
-
-        scanner.close();
     }
+    //---------------------------------------------------------------------------------------------------
+    public static void viewExcuseStatus(String studentID, String date){
 
+        //find the absence assoiciated with the student id and date
+        Absence absence = FileManagement.getAbsenceIDviaStudentID(studentID, date);
+
+        //get excuse status
+        String status = absence.getExcuse().getStatus();
+
+        // Check if absence was found
+        if (absence != null ) {
+            //check if the excuse was evaluated
+            if(status != "waiting for evaluation"){
+                System.out.println("The excuse status after evaluating the reason of absence is: " + status);
+            }
+            else{
+                System.out.println("The excuse hasn't been evaluated yet");
+            }
+        }  
+    }
+    //---------------------------------------------------------------------------------------------------
 }

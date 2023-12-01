@@ -61,16 +61,12 @@ public class StudentAbsenceMonitoringSystem_SWE {
             try {
                 callRegisterAbsence();
             } catch (IOException e) {
-                System.out.println("Error: couldent register absence (main class, adminFunctions(),callRegisterAbsence())");
+                System.out.println("Error: couldent register absence");
             }
         //-------------------------------------------   
         } else if (adminChoice == 2) {
             //evaluate excuse
-            try {
-                callEvaluateExcuse(scanner);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            callEvaluateExcuse(scanner);
         //-------------------------------------------
         } else {
             System.out.println("Invalid choice");
@@ -86,34 +82,79 @@ public class StudentAbsenceMonitoringSystem_SWE {
         int parentChoice = scanner.nextInt();
 
         if (parentChoice == 1) {
-            //get excuse and student id and date of absence
-            //Parent.submitExcuse();
+            //submit excuse
+            callSubmitExcuse(scanner);
+        //-------------------------------------------    
         } else if (parentChoice == 2) {
-            //get student id and date of absence
+            //view excuse status
            //Parent.viewExcuseStatus();
+        //-------------------------------------------
         } else {
             System.out.println("Invalid choice");
         }
     }
     //-----------------------------------------------------------------------------
-    static void callRegisterAbsence() throws IOException{
-        Student student = Student.getStudentInfo(); //prompt admin for student info
-        Absence absence = Absence.getAbsenceInfo(student); //prompt admin for absence info
+    static void callRegisterAbsence() throws IOException{  //AbsenceTimer Remaining
+
+        //prompt admin for student info
+        Student student = Student.getStudentInfo(); 
+
+        //prompt admin for absence info
+        Absence absence = Absence.getAbsenceInfo(student); 
+
+        //register absence in file
         Admin.registerAbsence(absence, student);
     }
     //-----------------------------------------------------------------------------
-    static void callEvaluateExcuse(Scanner scanner) throws ParseException{
+    static void callEvaluateExcuse(Scanner scanner){ 
+
         //get Absences date
-         Date date = Absence.getAbsencesDate(scanner);
+         String date = Absence.getAbsencesDate(scanner);
             
         //dispaly all excuses with the entered date
         FileManagement.displayExcuses(date);
         
         //let admin choose which excuse to evaluate
-        System.out.println("enter the id of the absence you want to evaluate: ");
-        int id = scanner.nextInt();
+        System.out.println("Enter the id of the absence excuse you want to evaluate: ");
+        String id = scanner.nextLine();
 
         Admin.evaluateExcuse(id);
+    }
+    //-----------------------------------------------------------------------------
+    static void callSubmitExcuse(Scanner scanner){
+        
+        //get Student ID
+        System.out.println("Enter the ID of the student you want to submit an excuse for: ");
+        String id = scanner.nextLine();
+
+        //get absence date
+        System.out.println("Enter the date of absence in this format \"dd/MM/yyyy\": ");
+        String date = scanner.nextLine();
+
+        //get excuse reason
+        System.out.println("Enter absence reason: ");
+        String reason = scanner.nextLine();
+
+        //submit excuse
+        try {
+            Parent.submitExcuse(id, date, reason);
+        } catch (IOException e) {
+            System.out.println("Error: Failed to submit excuse!");
+        }
+    }
+    //-----------------------------------------------------------------------------
+    static void callViewExcuseStatus(Scanner scanner){
+
+        //get Student ID
+        System.out.println("Enter the ID of the student you want to submit an excuse for: ");
+        String id = scanner.nextLine();
+
+        //get absence date
+        System.out.println("Enter the date of absence in this format \"dd/MM/yyyy\": ");
+        String date = scanner.nextLine();
+
+        //view excuse status
+        Parent.viewExcuseStatus(id, date);
     }
 
 }//c

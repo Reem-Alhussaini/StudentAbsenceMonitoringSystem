@@ -11,15 +11,15 @@ public class Absence {
 
     private String Date;
     private static int counter = 0;
-    private int id;
+    private String id;
     private Student student;
     private Excuse excuse;
-    public static ArrayList<Absence> absences;
+    
 
     //removed id from constructor 
     public Absence(Student student, String Date, Excuse excuse) {
         this.Date = Date;
-        this.id = counter++;
+        this.id = String.valueOf(counter++);
         this.student = student;
         this.excuse = excuse;
     }
@@ -28,7 +28,7 @@ public class Absence {
         this.Date = Date;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -44,7 +44,7 @@ public class Absence {
         return Date;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -62,29 +62,18 @@ public class Absence {
         String date = in.next();
 
         in.close();
-        Absence absence = new Absence(student, date, null);   
-        absences.add(absence);//delete this, we want to add it to the file and THEN make an ArrayList
-        return absence;
+
+        return new Absence(student, date, null); 
     }
 //-----------------------------------------------------------------------------
-    public static Absence getAbsenceViaAbsenceID(int id){
-        for(int i = 0; i < absences.size(); i++){
-            if(id == absences.get(i).getId()){
-                return absences.get(i);
-            }
-            else{
-                System.out.println("invalid id number");
-            }
-        }
-        return null;
-    }
+    
     //-----------------------------------------------------------------------------
-    public static Date getAbsencesDate(Scanner scanner) throws ParseException{
+    public static String getAbsencesDate(Scanner scanner){
         System.out.println("Enter the date of the absences you want to evaluate in this format \"dd/MM/yyyy\": ");
         String strDate = scanner.nextLine();
-        Date date=new SimpleDateFormat("dd/MM/yyyy").parse(strDate);  
+        //Date date=new SimpleDateFormat("dd/MM/yyyy").parse(strDate);  
 
-        return date;
+        return strDate;
     }
 
 }

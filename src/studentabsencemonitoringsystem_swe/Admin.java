@@ -15,9 +15,9 @@ public class Admin extends User {
     }
 
     
-    public static void evaluateExcuse(int absenceID) {
+    public static void evaluateExcuse(String absenceID) {
         // Step 1: find absence object associated with the id given by admin
-        Absence absence = Absence.getAbsenceViaAbsenceID(absenceID);
+        Absence absence = FileManagement.getAbsenceViaAbsenceID(absenceID);
 
         // Step 2: get excuse object from absence object
         Excuse excuse = absence.getExcuse();
@@ -31,15 +31,15 @@ public class Admin extends User {
 
             // Step 4: Prompt admin to enter the evaluation of the excuse
             Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter evaluation (accepted/rejected): ");
+            System.out.print("Evaluate excuse (accepted/rejected): ");
             String newStatus = scanner.nextLine();
             scanner.close();
 
             // Step 5: Update excuse status
-            excuse.setReason(newStatus);
-
-            // Step 6: Receive message that the status was updated successfully
-            System.out.println("Excuse status updated successfully.");
+            FileManagement.insertExcuseStatus(absence, excuse, newStatus);
+        }
+        else{
+            System.out.println("The excuse for the student with the ID " + absence.getStudent().getId() + " was already evaluated");
         }
     }
 }
