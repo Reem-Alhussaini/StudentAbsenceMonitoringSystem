@@ -1,5 +1,6 @@
 package studentabsencemonitoringsystem_swe;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Admin extends User {
@@ -8,7 +9,7 @@ public class Admin extends User {
         super(F_name, L_name, id);
     }
 
-    public static void registerAbsence(Absence absence, Student student) {
+    public static void registerAbsence(Absence absence, Student student) throws IOException {
         System.out.println(FileManagement.insertStudent(student));
         System.out.println(FileManagement.insertAbsence(absence));
     }

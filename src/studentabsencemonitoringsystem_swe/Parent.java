@@ -1,4 +1,5 @@
 package studentabsencemonitoringsystem_swe;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Parent extends User {
@@ -7,7 +8,7 @@ public class Parent extends User {
         super(F_name, L_name, id);
     }
     
-    public static void submitExcuse() {
+    public static void submitExcuse() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         // Prompt the parent to enter the student ID, reason for absence, and date of absence
