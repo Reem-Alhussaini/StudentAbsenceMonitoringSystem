@@ -11,11 +11,11 @@ public class Parent extends User {
 
         //find the absence assoiciated with the student id and date
         Absence absence = FileManagement.getAbsenceIDviaStudentID(studentID, date);
-
+        Excuse excuse = new Excuse(reason, "waiting for evaluation");
         // Check if absence was found
         if (absence != null) {
             // Insert the excuse into the Absence object and store it in the Attendance file
-            String message = FileManagement.insertExcuse(absence.getExcuse(), absence);
+            String message = FileManagement.insertExcuse(excuse, absence);
 
             // Display the message
             System.out.println(message);

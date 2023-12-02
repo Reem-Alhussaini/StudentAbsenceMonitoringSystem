@@ -56,21 +56,30 @@ public class Absence {
         return excuse;
     }
 //-----------------------------------------------------------------------------
-    public static Absence getAbsenceInfo(Student student) {
-        Scanner in = new Scanner(System.in);
+    public static Absence getAbsenceInfo(Scanner scanner) {
+
+        System.out.print("Enter Student first name:");
+        String fname = scanner.next();
+        System.out.print("Enter Student last name:");
+        String lname = scanner.next();
+        System.out.print("Enter Student ID:");
+        String id = scanner.next();
+
+        Student student = new Student(fname, lname, id);
+
         System.out.print("Enter absence Date in this format \"dd/MM/yyyy\": ");
-        String date = in.next();
+        String date = scanner.next();
 
-        in.close();
+        Absence absence =  new Absence(student, date, null);
 
-        return new Absence(student, date, null); 
+        return absence;
     }
 //-----------------------------------------------------------------------------
     
     //-----------------------------------------------------------------------------
     public static String getAbsencesDate(Scanner scanner){
         System.out.println("Enter the date of the absences you want to evaluate in this format \"dd/MM/yyyy\": ");
-        String strDate = scanner.nextLine();
+        String strDate = scanner.next();
         //Date date=new SimpleDateFormat("dd/MM/yyyy").parse(strDate);  
 
         return strDate;

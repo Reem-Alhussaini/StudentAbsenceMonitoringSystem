@@ -11,7 +11,7 @@ public class Admin extends User {
 
     public static void registerAbsence(Absence absence, Student student) throws IOException {
         System.out.println(FileManagement.insertStudent(student));
-        System.out.println(FileManagement.insertAbsence(absence));
+        System.out.println(FileManagement.insertAbsence(absence, student));
     }
 
     

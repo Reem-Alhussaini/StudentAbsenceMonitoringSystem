@@ -44,16 +44,5 @@ public class Student extends User {
         super.setL_name(L_name);
     }
 
-     public static Student getStudentInfo() {
-        Scanner in = new Scanner(System.in);
-        System.out.print("Enter Student first name:");
-        String fname = in.next();
-        System.out.print("Enter Student last name:");
-        String lname = in.next();
-        System.out.print("Enter Student ID:");
-        String id = in.next();
-
-        in.close();
-        return new Student(fname, lname, id);
-    }
+     
 }

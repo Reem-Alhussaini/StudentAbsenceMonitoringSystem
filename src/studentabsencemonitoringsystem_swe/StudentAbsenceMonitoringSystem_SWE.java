@@ -8,18 +8,18 @@ import java.text.SimpleDateFormat;
 
 public class StudentAbsenceMonitoringSystem_SWE {
 
-    static Scanner input = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         System.out.println("****** Student Absence Monitoring System ******");
         int choice;
         
         do {
             displayMenu();
-            choice = input.nextInt();
-            handleChoice(input,choice);
+            choice = scanner.nextInt();
+            handleChoice(scanner,choice);
         } while (choice != 3);
 
-        input.close();
+        
 
     }
     //-----------------------------------------------------------------------------
@@ -45,7 +45,7 @@ public class StudentAbsenceMonitoringSystem_SWE {
             System.out.println("Invalid choice");
         }
 
-        scanner.close();
+        
     }
     //-----------------------------------------------------------------------------
     static void adminFunctions(Scanner scanner) {
@@ -96,12 +96,12 @@ public class StudentAbsenceMonitoringSystem_SWE {
     //-----------------------------------------------------------------------------
     static void callRegisterAbsence() throws IOException{  //AbsenceTimer Remaining
 
-        //prompt admin for student info
-        Student student = Student.getStudentInfo(); 
-
         //prompt admin for absence info
-        Absence absence = Absence.getAbsenceInfo(student); 
+        Absence absence = Absence.getAbsenceInfo(scanner); 
 
+        //get Student object
+        Student student = absence.getStudent();
+        
         //register absence in file
         Admin.registerAbsence(absence, student);
     }
