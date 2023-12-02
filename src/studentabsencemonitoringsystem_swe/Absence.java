@@ -10,8 +10,6 @@ import java.util.Date;
 public class Absence {
 
     private String Date;
-    private static int counter = 0;
-    private String id;
     private Student student;
     private Excuse excuse;
     
@@ -19,17 +17,12 @@ public class Absence {
     //removed id from constructor 
     public Absence(Student student, String Date, Excuse excuse) {
         this.Date = Date;
-        this.id = String.valueOf(++counter);
         this.student = student;
         this.excuse = excuse;
     }
 
     public void setDate(String Date) {
         this.Date = Date;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public void setStudent(Student student) {
@@ -42,10 +35,6 @@ public class Absence {
 
     public String getDate() {
         return Date;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public Student getStudent() {

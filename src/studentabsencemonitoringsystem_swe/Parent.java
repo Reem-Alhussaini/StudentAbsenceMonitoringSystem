@@ -10,30 +10,38 @@ public class Parent extends User {
     public static void submitExcuse(String studentID, String date, String reason) throws IOException { //COMPLETED
 
         //find the absence assoiciated with the student id and date
-        Absence absence = FileManagement.getAbsenceIDviaStudentID(studentID, date);
+        Absence absence = FileManagement.getAbsenceForParent(studentID, date);
         Excuse excuse = new Excuse(reason, "waiting for evaluation");
         // Check if absence was found
-        if (absence != null) {
-            // Insert the excuse into the Absence object and store it in the Attendance file
+        try{
             String message = FileManagement.insertExcuse(excuse, absence);
-
-            // Display the message
             System.out.println(message);
-        } else {
+        }catch(NullPointerException e){
             System.out.println("No absence found for the provided details.");
+            e.printStackTrace();
         }
+        // if (absence != null) {
+        //     // Insert the excuse into the Absence object and store it in the Attendance file
+        //     String message = FileManagement.insertExcuse(excuse, absence);
+
+        //     // Display the message
+        //     System.out.println(message);
+        // } else {
+        //     System.out.println("No absence found for the provided details.");
+        // }
     }
     //---------------------------------------------------------------------------------------------------
     public static void viewExcuseStatus(String studentID, String date){
 
         //find the absence assoiciated with the student id and date
-        Absence absence = FileManagement.getAbsenceIDviaStudentID(studentID, date);
-
-        //get excuse status
-        String status = absence.getExcuse().getStatus();
+        Absence absence = FileManagement.getAbsenceForAdmin(studentID, date);
 
         // Check if absence was found
         if (absence != null ) {
+
+            //get excuse status
+            String status = absence.getExcuse().getStatus();
+
             //check if the excuse was evaluated
             if(status != "waiting for evaluation"){
                 System.out.println("The excuse status after evaluating the reason of absence is: " + status);

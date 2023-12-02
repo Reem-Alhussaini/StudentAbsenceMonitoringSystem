@@ -115,25 +115,25 @@ public class StudentAbsenceMonitoringSystem_SWE {
         FileManagement.displayExcuses(date);
         
         //let admin choose which excuse to evaluate
-        System.out.println("Enter the id of the absence excuse you want to evaluate: ");
-        String id = scanner.nextLine();
+        System.out.println("Enter the id of the student whos excuse you want to evaluate: ");
+        String id = scanner.next();
 
-        Admin.evaluateExcuse(id);
+        Admin.evaluateExcuse(id,date,scanner);
     }
     //-----------------------------------------------------------------------------
     static void callSubmitExcuse(Scanner scanner){
         
         //get Student ID
         System.out.println("Enter the ID of the student you want to submit an excuse for: ");
-        String id = scanner.nextLine();
+        String id = scanner.next();
 
         //get absence date
         System.out.println("Enter the date of absence in this format \"dd/MM/yyyy\": ");
-        String date = scanner.nextLine();
+        String date = scanner.next();
 
         //get excuse reason
         System.out.println("Enter absence reason: ");
-        String reason = scanner.nextLine();
+        String reason = scanner.next();
 
         //submit excuse
         try {

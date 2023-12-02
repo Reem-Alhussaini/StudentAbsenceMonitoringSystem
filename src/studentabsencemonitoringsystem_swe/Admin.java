@@ -15,10 +15,10 @@ public class Admin extends User {
     }
 
     
-    public static void evaluateExcuse(String absenceID) {
+    public static void evaluateExcuse(String absenceID,String date, Scanner scanner) {
         // Step 1: find absence object associated with the id given by admin
-        Absence absence = FileManagement.getAbsenceViaAbsenceID(absenceID);
-
+        Absence absence = FileManagement.getAbsenceForAdmin(absenceID, date);
+        
         // Step 2: get excuse object from absence object
         Excuse excuse = absence.getExcuse();
 
@@ -27,13 +27,12 @@ public class Admin extends User {
         System.out.println("Current status: " + excuse.getStatus());
 
         // update the excuse status "only if" the excuse was not evaluated yet
-        if(excuse.getStatus() == "waiting for evaluation"){
+        if(excuse.getStatus().equals("waiting for evaluation")){
 
             // Step 4: Prompt admin to enter the evaluation of the excuse
-            Scanner scanner = new Scanner(System.in);
             System.out.print("Evaluate excuse (accepted/rejected): ");
-            String newStatus = scanner.nextLine();
-            scanner.close();
+            String newStatus = scanner.next();
+            
 
             // Step 5: Update excuse status
             FileManagement.insertExcuseStatus(absence, excuse, newStatus);

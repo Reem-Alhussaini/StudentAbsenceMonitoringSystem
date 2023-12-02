@@ -9,16 +9,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 
 public class FileManagement {
 
-    private static String AttendanceFile = "AttendanceFile.csv";
+    private static String AttendanceFile = "AttendanceFile.txt";
 
     //store absences in an ArrayList to make accessing absences easier
     private static ArrayList<Absence> absences = new ArrayList<>();
   
-    //Student_ID,Student_First_Name,Student_Last_Name,Absence_ID,Date_of_absence,Reason_of_absence,Excuse_status
+    //Student_ID,Student_First_Name,Student_Last_Name,Date_of_absence,Reason_of_absence,Excuse_status
 
     //Getter---------------------------------------------------------------------------------------------------------
     public static ArrayList<Absence> getAbsences() {
@@ -47,13 +48,15 @@ public class FileManagement {
         data to the student data, we need to rewrite the whole file */
 
         //store absences in an ArrayList to make accessing absences easier
-        storeAbsencesArrayList(absence);
+        //storeAbsencesArrayList(absence);
+        ArrayList<Absence> absencesArray = getAbsences();
+        absencesArray.add(absence);
 
         //find the student data stored in the file
         String studentInfo = student.getId()+ "," +student.getF_name()+ "," +student.getL_name() ;
 
         //append the absence data to the student data
-        String studentAndAbsenceInfo = studentInfo +","+absence.getId()+","+absence.getDate();
+        String studentAndAbsenceInfo = studentInfo +","+absence.getDate();
 
         //Use an ArrayList to store the file content by reading it using BufferedReader.
 
@@ -100,7 +103,7 @@ public class FileManagement {
         //find the student data stored in the file
         String studentInfo = student.getId()+ "," +student.getF_name()+ "," +student.getL_name();
         //append the absence data to the student data
-        String studentAndAbsenceInfo = studentInfo +","+absence.getId()+","+absence.getDate();
+        String studentAndAbsenceInfo = studentInfo +","+absence.getDate();
 
         //append the excuse info to the student and absence info (full attendance info)
         String fullAttendanceInfo = studentAndAbsenceInfo+","+excuse.getReason()+","+excuse.getStatus();
@@ -141,10 +144,9 @@ public class FileManagement {
          student data, we need to rewrite the whole file */
 
         //get the line we want to insert the excuse status into
-        //Student_ID,Student_First_Name,Student_Last_Name,Absence_ID,Date_of_absence,Reason_of_absence,Excuse_status
+        //Student_ID,Student_First_Name,Student_Last_Name,Date_of_absence,Reason_of_absence,Excuse_status
         String studentData = absence.getStudent().getId()+","+absence.getStudent().getF_name()+","+absence.getStudent().getL_name();
-        String absenceData = absence.getId()+","+absence.getDate();
-        String studentAndAbsenceInfo = studentData +","+ absenceData;
+        String studentAndAbsenceInfo = studentData +","+ absence.getDate();
         String excuseData = excuse.getReason()+ ","+ excuse.getStatus();
         String originalLine = studentAndAbsenceInfo + ","+ excuseData;
 
@@ -200,60 +202,114 @@ public class FileManagement {
     //end of insert functions--------------------------------------------------------------------------------------------------
     
     public static void displayExcuses(String date){
-        ArrayList<Absence> absences = getAbsences();
 
-        for(Absence absence : absences){
-            if(date == absence.getDate()){
-                System.out.printf("Date of absence: %s%n", absence.getDate());
-                System.out.printf("Reason for absence: %s%n", absence.getExcuse().getReason());
-                System.out.printf("Current status : %s%n", absence.getExcuse().getStatus());
+        try (BufferedReader reader = new BufferedReader(new FileReader(AttendanceFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+
+                String[] tokens = line.split(",",0);
+
+                for (int token = 0; token < tokens.length; token++) {
+
+                    if(date.equals(tokens[token])){
+                    
+                    System.out.println("Date of absence: "+ date);
+                    int nextToken = token +1;
+                    if(tokens[nextToken] == "waiting for evaluation" || tokens[nextToken]=="accepted"||tokens[nextToken] == "rejected"){
+                        System.out.println("Reason for absence: no reason submitted");
+                        System.out.println("Current status : "+ tokens[nextToken]);
+                        System.out.println("ID of absence: " + tokens[token-1]);
+                    }
+                    else{
+                        System.out.println("Reason for absence: "+ tokens[nextToken]);
+                        if((nextToken+1) < tokens.length){
+                            System.out.println("Current status : "+tokens[nextToken +1]);
+                        }
+                        System.out.println("ID of absence: " + tokens[token-1]);
+                    }
+                    }
+                }
             }
-            else{
-                System.out.println("There is no absence registered in the file in the date: "+ date);
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }
-    //----------------------------------------------------------------------------------
-    public static void storeAbsencesArrayList(Absence absence){ //COMPLETED
-        absences.add(absence);
-    }
-    
-    //search in ArrayList---------------------------------------------------------------
-
-    //find absence id for admin
-    public static Absence getAbsenceViaAbsenceID(String id){ //COMPLETED
-
-        ArrayList<Absence> absences = getAbsences();
-
-        for(Absence absence : absences){
-            if(id == absence.getId()){
-                return absence;
-            }
-            else{
-                System.out.println("There is no absence registered in the file "+
-                "with the ID: "+ id);
-            }
-        }
-        return null;
     }
     //----------------------------------------------------------------------------------
     //find absence id for parent
-    public static Absence getAbsenceIDviaStudentID(String studentID, String date) { //COMPLETED
+    public static Absence getAbsenceForAdmin(String studentID, String date) { //COMPLETED
 
-        ArrayList<Absence> absences = getAbsences();
+        try (BufferedReader reader = new BufferedReader(new FileReader(AttendanceFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
 
-        for(Absence absence : absences){
-            if(studentID == absence.getStudent().getId() && date == absence.getDate()){
-                return absence;
+                String[] tokens = line.split(",",0);
+
+                for (int token = 0; token < tokens.length; token++) {
+                    
+                    if(studentID.equals(tokens[token]) && date.equals(tokens[token+3])){
+                        Student student = new Student(tokens[token+1],tokens[token+2],tokens[token]);
+                        Excuse excuse;
+                        if(tokens[token+4] == "waiting for evaluation" || tokens[token+4]=="accepted"||tokens[token+4] == "rejected"){
+                            excuse = new Excuse(null,tokens[token+5]);
+                            Absence absence = new Absence(student,date,excuse );
+                            return absence;
+                        }
+                        else{
+                            excuse = new Excuse(tokens[token+4],tokens[token+5]);
+                            Absence absence = new Absence(student,date,excuse );
+                            return absence;
+                        }   
+                    }
+                }
             }
-            else{
-                System.out.println("There is no absence registered in the file "+
-                "for the student ID: "+ studentID +" on the date: "+ date);
-            }
+        } catch (IOException e) {
+            System.out.println("There is no absence registered in the file "+
+                        "for the student ID: "+ studentID +" on the date: "+ date);
+            e.printStackTrace();
+            
         }
         return null;
+        // ArrayList<Absence> absences = getAbsences();
+        
+        // for(Absence absence : absences){
+        //     try{
+        //     if( absence != null && studentID.equals(absence.getStudent().getId()) && date.equals(absence.getDate())){
+        //         System.out.println(absence.getStudent().getF_name());//test
+        //         return absence;
+        //     }
+        //     }catch(NullPointerException e){
+        //         System.out.println("There is no absence registered in the file "+
+        //          "for the student ID: "+ studentID +" on the date: "+ date);
+        //          e.printStackTrace();
+        //     }
+        // }
+        // return null;
 
     }
-    //end of search in ArrayList--------------------------------------------------------
+    //-----------------------------------------------------------------------------------
+    public static Absence getAbsenceForParent(String studentID, String date) { //COMPLETED
 
+        try (BufferedReader reader = new BufferedReader(new FileReader(AttendanceFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+
+                String[] tokens = line.split(",",0);
+                
+                for (int token = 0; token < tokens.length; token++) {
+                    
+                        if(studentID.equals(tokens[token]) && date.equals(tokens[token+3])){
+                            Student student = new Student(tokens[token+1],tokens[token+2],tokens[token]);
+                            Absence absence = new Absence(student,date,null);
+                            return absence;
+                        }   
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("There is no absence registered in the file "+
+                        "for the student ID: "+ studentID +" on the date: "+ date);
+            e.printStackTrace();
+            
+        }
+        return null;
+    }
 }
