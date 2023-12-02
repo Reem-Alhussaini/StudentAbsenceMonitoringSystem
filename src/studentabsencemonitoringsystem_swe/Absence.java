@@ -19,7 +19,7 @@ public class Absence {
     //removed id from constructor 
     public Absence(Student student, String Date, Excuse excuse) {
         this.Date = Date;
-        this.id = String.valueOf(counter++);
+        this.id = String.valueOf(++counter);
         this.student = student;
         this.excuse = excuse;
     }

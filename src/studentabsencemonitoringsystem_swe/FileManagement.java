@@ -10,16 +10,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-//insert functions completed
 
 public class FileManagement {
 
     private static String AttendanceFile = "AttendanceFile.csv";
+
     //store absences in an ArrayList to make accessing absences easier
     private static ArrayList<Absence> absences = new ArrayList<>();
-
-    //to read from Attendance file
-    //BufferedReader reader = new BufferedReader(new FileReader(AttendanceFile));    
+  
     //Student_ID,Student_First_Name,Student_Last_Name,Absence_ID,Date_of_absence,Reason_of_absence,Excuse_status
 
     //Getter---------------------------------------------------------------------------------------------------------
