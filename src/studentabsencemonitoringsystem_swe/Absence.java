@@ -1,10 +1,6 @@
 package studentabsencemonitoringsystem_swe;
 
 import java.util.Scanner;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 //made a static counter to increment the id 
 public class Absence {
@@ -12,13 +8,14 @@ public class Absence {
     private String Date;
     private Student student;
     private Excuse excuse;
-    
+    private final long startTime;
 
     //removed id from constructor 
     public Absence(Student student, String Date, Excuse excuse) {
         this.Date = Date;
         this.student = student;
         this.excuse = excuse;
+        this.startTime = System.currentTimeMillis();
     }
 
     public void setDate(String Date) {
@@ -44,7 +41,12 @@ public class Absence {
     public Excuse getExcuse() {
         return excuse;
     }
+
+    public long getStartTime() {
+        return startTime;
+    }
 //-----------------------------------------------------------------------------
+
     public static Absence getAbsenceInfo(Scanner scanner) {
 
         System.out.print("Enter Student first name:");
@@ -59,14 +61,14 @@ public class Absence {
         System.out.print("Enter absence Date in this format \"dd/MM/yyyy\": ");
         String date = scanner.next();
 
-        Absence absence =  new Absence(student, date, null);
+        Absence absence = new Absence(student, date, null);
 
         return absence;
     }
 //-----------------------------------------------------------------------------
-    
+
     //-----------------------------------------------------------------------------
-    public static String getAbsencesDate(Scanner scanner){
+    public static String getAbsencesDate(Scanner scanner) {
         System.out.println("Enter the date of the absences you want to evaluate in this format \"dd/MM/yyyy\": ");
         String strDate = scanner.next();
         //Date date=new SimpleDateFormat("dd/MM/yyyy").parse(strDate);  

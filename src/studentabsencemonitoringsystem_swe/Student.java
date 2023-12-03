@@ -1,9 +1,7 @@
 package studentabsencemonitoringsystem_swe;
 
-import java.util.Scanner;
-
 public class Student extends User {
-    
+
     public Student(String F_name, String L_name, String id) {
         super(F_name, L_name, id);
     }
@@ -44,5 +42,4 @@ public class Student extends User {
         super.setL_name(L_name);
     }
 
-     
 }
