@@ -8,14 +8,14 @@ public class Absence {
     private String Date;
     private Student student;
     private Excuse excuse;
-    private final long startTime;
+    long startTime;//Changed access level to package-private
 
     //removed id from constructor 
     public Absence(Student student, String Date, Excuse excuse) {
         this.Date = Date;
         this.student = student;
         this.excuse = excuse;
-        this.startTime = System.currentTimeMillis();
+        this.startTime = System.currentTimeMillis();;
     }
 
     public void setDate(String Date) {
@@ -45,6 +45,8 @@ public class Absence {
     public long getStartTime() {
         return startTime;
     }
+
+
 //-----------------------------------------------------------------------------
 
     public static Absence getAbsenceInfo(Scanner scanner) {
