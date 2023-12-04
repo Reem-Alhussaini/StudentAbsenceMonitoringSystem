@@ -3,11 +3,9 @@ package studentabsencemonitoringsystem_swe;
 import java.io.PrintWriter;
 import java.io.FileWriter;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -88,54 +86,57 @@ public class FileManagement {
     }
     
     //--------------------------------------------------------------------------------------------------------------------------
-    public static String insertExcuse(Excuse excuse, Absence absence) throws IOException { //COMPLETED
+     public static String insertExcuse(Excuse excuse, Absence absence) throws IOException { //COMPLETED
         /*To insert the excuse in the file by appending the excuse data to the absence and
          student data, we need to rewrite the whole file */
+        if (AbsenceTimer.Timer(absence) || excuse.getStatus().equals("waiting for evaluation")) {
 
-        //insert excuse object into absence object
-        absence.setExcuse(excuse);
+            //insert excuse object into absence object
+            absence.setExcuse(excuse);
 
-        ///find the line we want to append the excuse info into
+            ///find the line we want to append the excuse info into
+            //the student object associated with the absence object received by the method
+            Student student = absence.getStudent();
+            //find the student data stored in the file
+            String studentInfo = student.getId() + "," + student.getF_name() + "," + student.getL_name();
+            //append the absence data to the student data
+            String studentAndAbsenceInfo = studentInfo + "," + absence.getDate();
 
-        //the student object associated with the absence object received by the method
-        Student student = absence.getStudent();
-        //find the student data stored in the file
-        String studentInfo = student.getId()+ "," +student.getF_name()+ "," +student.getL_name();
-        //append the absence data to the student data
-        String studentAndAbsenceInfo = studentInfo +","+absence.getDate();
+            //append the excuse info to the student and absence info (full attendance info)
+            String fullAttendanceInfo = studentAndAbsenceInfo + "," + excuse.getReason() + "," + excuse.getStatus();
 
-        //append the excuse info to the student and absence info (full attendance info)
-        String fullAttendanceInfo = studentAndAbsenceInfo+","+excuse.getReason()+","+excuse.getStatus();
+            List<String> lines = new ArrayList<>();
 
-
-        
-        List<String> lines = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(AttendanceFile))) {
-            String line;
-            //store file content in arrayList
-            while ((line= reader.readLine()) != null) {
-                lines.add(line);
+            try (BufferedReader reader = new BufferedReader(new FileReader(AttendanceFile))) {
+                String line;
+                //store file content in arrayList
+                while ((line = reader.readLine()) != null) {
+                    lines.add(line);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        //modify the specified line
-        boolean lineModified = false;
-        for (int i = 0; i < lines.size(); i++) {
-            if (lines.get(i).equals(studentAndAbsenceInfo)) {
-                lines.set(i, fullAttendanceInfo);
-                lineModified = true;
-                break;  
+            //modify the specified line
+            boolean lineModified = false;
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).equals(studentAndAbsenceInfo)) {
+                    lines.set(i, fullAttendanceInfo);
+                    lineModified = true;
+                    break;
+                }
             }
+
+            //rewrite file content
+            String success = "excuse added sucessfully";
+            String fail = "couldent add excuse, try again";
+            return rewriteFileContent(lines, lineModified, absence.getStudent(), success, fail);
+
+        } else {
+            System.out.println("The excuse cannot be submit. The absence has been recorded as an unexcused absence");
+            excuse.setStatus("unexcused absence");
+            return "The period specified for including the excuse has been exceeded";
         }
-        
-        //rewrite file content
-        String success = "excuse added sucessfully";
-        String fail = "couldent add excuse, try again";
-        return rewriteFileContent(lines, lineModified, absence.getStudent(), success, fail);
-        
     }
     //--------------------------------------------------------------------------------------------------------------------------
     public static String insertExcuseStatus(Absence absence, Excuse excuse, String status){
@@ -213,25 +214,34 @@ public class FileManagement {
                     if(date.equals(tokens[token])){
                     
                     System.out.println("Date of absence: "+ date);
-                    int nextToken = token +1;
+                    int nextToken = token +1; //reason
+                    //if the reason wasnt submitted yet, the next token, which is supposed to be the reason, will read the status
+                    //so to make sure not to read the file incoorectly, check if the next token value is one of these three
                     if(tokens[nextToken] == "waiting for evaluation" || tokens[nextToken]=="accepted"||tokens[nextToken] == "rejected"){
                         System.out.println("Reason for absence: no reason submitted");
                         System.out.println("Current status : "+ tokens[nextToken]);
+                        
                     }
-                    else{
+                    else{ //a reason was submitted, we can read the file normally
                         System.out.println("Reason for absence: "+ tokens[nextToken]);
-                        if((nextToken+1) < tokens.length){
+                        try{
                             System.out.println("Current status : "+tokens[nextToken +1]);
+                            
+                        }catch(ArrayIndexOutOfBoundsException e){
+                            for (int i = 0; i < tokens.length; i++) {
+                                System.out.println(tokens[i] + ",");
+                            }
                         }
-                    }
                     }
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
     //----------------------------------------------------------------------------------
+    //find absence id for parent
     public static Absence getAbsenceForAdmin(String studentID, String date) { //COMPLETED
 
         try (BufferedReader reader = new BufferedReader(new FileReader(AttendanceFile))) {
@@ -265,6 +275,7 @@ public class FileManagement {
             
         }
         return null;
+        
     }
     //-----------------------------------------------------------------------------------
     public static Absence getAbsenceForParent(String studentID, String date) { //COMPLETED
