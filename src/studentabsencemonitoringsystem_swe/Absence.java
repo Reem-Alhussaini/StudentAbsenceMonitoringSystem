@@ -15,7 +15,7 @@ public class Absence {
         this.Date = Date;
         this.student = student;
         this.excuse = excuse;
-        this.startTime = System.currentTimeMillis();;
+        this.startTime = System.currentTimeMillis();
     }
 
     public void setDate(String Date) {
