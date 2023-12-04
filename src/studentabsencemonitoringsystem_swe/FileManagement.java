@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.StringTokenizer;
 
 
 public class FileManagement {
@@ -218,14 +217,12 @@ public class FileManagement {
                     if(tokens[nextToken] == "waiting for evaluation" || tokens[nextToken]=="accepted"||tokens[nextToken] == "rejected"){
                         System.out.println("Reason for absence: no reason submitted");
                         System.out.println("Current status : "+ tokens[nextToken]);
-                        System.out.println("ID of absence: " + tokens[token-1]);
                     }
                     else{
                         System.out.println("Reason for absence: "+ tokens[nextToken]);
                         if((nextToken+1) < tokens.length){
                             System.out.println("Current status : "+tokens[nextToken +1]);
                         }
-                        System.out.println("ID of absence: " + tokens[token-1]);
                     }
                     }
                 }
@@ -235,7 +232,6 @@ public class FileManagement {
         }
     }
     //----------------------------------------------------------------------------------
-    //find absence id for parent
     public static Absence getAbsenceForAdmin(String studentID, String date) { //COMPLETED
 
         try (BufferedReader reader = new BufferedReader(new FileReader(AttendanceFile))) {
@@ -269,22 +265,6 @@ public class FileManagement {
             
         }
         return null;
-        // ArrayList<Absence> absences = getAbsences();
-        
-        // for(Absence absence : absences){
-        //     try{
-        //     if( absence != null && studentID.equals(absence.getStudent().getId()) && date.equals(absence.getDate())){
-        //         System.out.println(absence.getStudent().getF_name());//test
-        //         return absence;
-        //     }
-        //     }catch(NullPointerException e){
-        //         System.out.println("There is no absence registered in the file "+
-        //          "for the student ID: "+ studentID +" on the date: "+ date);
-        //          e.printStackTrace();
-        //     }
-        // }
-        // return null;
-
     }
     //-----------------------------------------------------------------------------------
     public static Absence getAbsenceForParent(String studentID, String date) { //COMPLETED
