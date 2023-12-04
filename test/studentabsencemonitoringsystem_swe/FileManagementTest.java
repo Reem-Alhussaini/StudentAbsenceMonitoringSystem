@@ -46,7 +46,7 @@ public class FileManagementTest {
     @Test
     public void testInsertStudent() {
         // Test inserting a new student
-        Student student = new Student("Lama", "Alamri", "2107528");
+        Student student = new Student("John", "Doe", "123");
         String result = FileManagement.insertStudent(student);
         assertEquals("Student should be added successfully", "Student added successfully: 123 John Doe", result);
     }
@@ -55,7 +55,7 @@ public class FileManagementTest {
     public void testInsertAbsence() throws IOException {
         // Test inserting a new absence for a student
         Student student = new Student("John", "Doe", "123");
-        Absence absence = new Absence(student, "2023-12-01", null);
+        Absence absence = new Absence(student, "01/01/2023", null);
         String result = FileManagement.insertAbsence(absence, student);
         assertEquals("Absence should be added successfully", "absence added successfully", result);
     }
@@ -63,7 +63,7 @@ public class FileManagementTest {
     @Test
     public void testInsertExcuse() throws IOException {
         // Test inserting a new excuse for an absence
-        Student student = new Student("Lama", "Alamri", "2107528");
+        Student student = new Student("John", "Doe", "123");
         Absence absence = new Absence(student, "01/01/2023", null);
         Excuse excuse = new Excuse("sick", "waiting for evaluation");
         String result = FileManagement.insertExcuse(excuse, absence);
@@ -73,8 +73,8 @@ public class FileManagementTest {
     @Test
     public void testInsertExcuseStatus() throws IOException {
         // Test inserting a new status for an excuse
-        Student student = new Student("Lama", "Alamri", "2107528");
-        Absence absence = new Absence(student, "", new Excuse("sick", "waiting for evaluation"));
+        Student student = new Student("John", "Doe", "123");
+        Absence absence = new Absence(student, "01/01/2023", new Excuse("sick", "waiting for evaluation"));
         Excuse excuse = absence.getExcuse();
         String result = FileManagement.insertExcuseStatus(absence, excuse, "accepted");
         assertEquals("Status should be updated successfully", "Status updated sucessfully", result);
@@ -83,7 +83,7 @@ public class FileManagementTest {
     @Test
     public void testGetAbsenceForAdmin() {
         // Test getting absence information for admin
-        String studentID = "2107528";
+        String studentID = "123";
         String date = "01/01/2023";
         Absence result = FileManagement.getAbsenceForAdmin(studentID, date);
         assertNotNull("Absence information should be retrieved for admin", result);
@@ -92,7 +92,7 @@ public class FileManagementTest {
     @Test
     public void testGetAbsenceForParent() {
         // Test getting absence information for parent
-        String studentID = "2107528";
+        String studentID = "123";
         String date = "01/01/2023";
         Absence result = FileManagement.getAbsenceForParent(studentID, date);
         assertNotNull("Absence information should be retrieved for parent", result);
