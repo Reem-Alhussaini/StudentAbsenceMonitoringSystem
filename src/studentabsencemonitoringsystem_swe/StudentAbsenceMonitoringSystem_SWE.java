@@ -148,11 +148,11 @@ public class StudentAbsenceMonitoringSystem_SWE {
 
         //get Student ID
         System.out.println("Enter the ID of the student you want to submit an excuse for: ");
-        String id = scanner.nextLine();
+        String id = scanner.next();
 
         //get absence date
         System.out.println("Enter the date of absence in this format \"dd/MM/yyyy\": ");
-        String date = scanner.nextLine();
+        String date = scanner.next();
 
         //view excuse status
         Parent.viewExcuseStatus(id, date);

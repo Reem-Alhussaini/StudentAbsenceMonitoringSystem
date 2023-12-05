@@ -9,15 +9,17 @@ public class Absence {
     private Student student;
     private Excuse excuse;
     long startTime;//Changed access level to package-private
-
-    //removed id from constructor 
+ private AbsenceTimer timer;
+ 
+//removed id from constructor 
     public Absence(Student student, String Date, Excuse excuse) {
         this.Date = Date;
         this.student = student;
         this.excuse = excuse;
         this.startTime = System.currentTimeMillis();
+        this.timer = new AbsenceTimer(this);
     }
-
+    
     public void setDate(String Date) {
         this.Date = Date;
     }
@@ -64,7 +66,6 @@ public class Absence {
         String date = scanner.next();
 
         Absence absence = new Absence(student, date, null);
-
         return absence;
     }
 //-----------------------------------------------------------------------------

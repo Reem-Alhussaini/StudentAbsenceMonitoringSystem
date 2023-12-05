@@ -36,7 +36,7 @@ public class Parent extends User {
             String status = absence.getExcuse().getStatus();
 
             //check if the excuse was evaluated
-            if (status != "waiting for evaluation") {
+            if (!"waiting for evaluation".equals(status)) {
                 System.out.println("The excuse status after evaluating the reason of absence is: " + status);
             } else {
                 System.out.println("The excuse hasn't been evaluated yet");
