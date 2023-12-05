@@ -9,7 +9,7 @@ public class Absence {
     private Student student;
     private Excuse excuse;
     long startTime;//Changed access level to package-private
- private AbsenceTimer timer;
+    private AbsenceTimer timer;
  
 //removed id from constructor 
     public Absence(Student student, String Date, Excuse excuse) {
@@ -70,11 +70,9 @@ public class Absence {
     }
 //-----------------------------------------------------------------------------
 
-    //-----------------------------------------------------------------------------
     public static String getAbsencesDate(Scanner scanner) {
         System.out.println("Enter the date of the absences you want to evaluate in this format \"dd/MM/yyyy\": ");
         String strDate = scanner.next();
-        //Date date=new SimpleDateFormat("dd/MM/yyyy").parse(strDate);  
 
         return strDate;
     }

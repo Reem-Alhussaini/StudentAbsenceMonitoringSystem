@@ -16,31 +16,38 @@ public class Admin extends User {
 
     public static void evaluateExcuse(String absenceID, String date, Scanner scanner) {
         // Step 1: find absence object associated with the id given by admin
-        Absence absence = FileManagement.getAbsenceForAdmin(absenceID, date);
+        Absence absence = FileManagement.getAbsenceWExcuse(absenceID, date);
 
         // Step 2: get excuse object from absence object
         if (absence != null) {
             Excuse excuse = absence.getExcuse();
+            if(excuse != null){
+                
+                // Step 3: Display reason for absence and current status of the excuse
+                System.out.println("Reason for absence: " + excuse.getReason());
+                System.out.println("Current status: " + excuse.getStatus());
 
-            // Step 3: Display reason for absence and current status of the excuse
-            System.out.println("Reason for absence: " + excuse.getReason());
-            System.out.println("Current status: " + excuse.getStatus());
+                // update the excuse status "only if" the excuse was not evaluated yet
+                if (excuse.getStatus().equals("waiting for evaluation")) {
 
-            // update the excuse status "only if" the excuse was not evaluated yet
-            if (excuse.getStatus().equals("waiting for evaluation")) {
+                    // Step 4: Prompt admin to enter the evaluation of the excuse
+                    System.out.print("Evaluate excuse (accepted/rejected): ");
+                    String newStatus = scanner.next();
 
-                // Step 4: Prompt admin to enter the evaluation of the excuse
-                System.out.print("Evaluate excuse (accepted/rejected): ");
-                String newStatus = scanner.next();
-
-                // Step 5: Update excuse status
-                FileManagement.insertExcuseStatus(absence, excuse, newStatus);
-            } else {
-                System.out.println("The excuse for the student with the ID " + absence.getStudent().getId() + " was already evaluated");
+                    // Step 5: Update excuse status
+                    FileManagement.insertExcuseStatus(absence, excuse, newStatus);
+                } 
+                else {
+                    System.out.println("The excuse for the student with the ID " + absence.getStudent().getId() + " was already evaluated");
+                }
             }
-        }//if
+            else{
+                System.out.println("No excuse was submitted for this absence");
+            }
+         }//if
+        
         else {
-            System.out.println("not found absence");
+            System.out.println("absence not found ");
         }
     }
 }

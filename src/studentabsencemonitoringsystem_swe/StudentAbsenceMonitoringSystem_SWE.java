@@ -92,7 +92,7 @@ public class StudentAbsenceMonitoringSystem_SWE {
     }
 
     //-----------------------------------------------------------------------------
-    static void callRegisterAbsence() throws IOException {  //AbsenceTimer Remaining
+    static void callRegisterAbsence() throws IOException {  
 
         //prompt admin for absence info
         Absence absence = Absence.getAbsenceInfo(scanner);
@@ -122,7 +122,7 @@ public class StudentAbsenceMonitoringSystem_SWE {
 
     //-----------------------------------------------------------------------------
     static void callSubmitExcuse(Scanner scanner) {
-
+        Scanner input = new Scanner(System.in);
         //get Student ID
         System.out.println("Enter the ID of the student you want to submit an excuse for: ");
         String id = scanner.next();
@@ -133,7 +133,7 @@ public class StudentAbsenceMonitoringSystem_SWE {
 
         //get excuse reason
         System.out.println("Enter absence reason: ");
-        String reason = scanner.next();
+        String reason = input.nextLine();
 
         //submit excuse
         try {

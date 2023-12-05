@@ -87,7 +87,7 @@ public class FileManagementTest {
         // Test getting absence information for admin
         String studentID = "123";
         String date = "01/01/2023";
-        Absence result = FileManagement.getAbsenceForAdmin(studentID, date);
+        Absence result = FileManagement.getAbsenceWExcuse(studentID, date);
         assertNotNull("Absence information should be retrieved for admin", result);
     }
 

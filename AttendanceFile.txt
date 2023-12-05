@@ -9,10 +9,17 @@
 789,leena,aa,23/1/2023
 5,yasser,aljohani,11/11/2023,sick,accepted
 210666,Raneem,Aljohani,12/4/2023,sick,rejected
-211,lama,alamri,11/11/1111
+211,lama,alamri,11/11/1111,,waiting for evaluation
 2106814,ethar,alomari,22/11/2023
-210345,Jood,Aljohani,14/5/2023
+210345,Jood,Aljohani,14/5/2023,very,waiting for evaluation
 12,Razan,al,12/2/2023,sixk,accepted
-33,reema,ali,15/7/2023
-10,maha,a,11/1/2023,sick,accepted
+33,reema,ali,15/7/2023,,waiting for evaluation
+10,maha,a,11/1/2023,,waiting for evaluation
 1,ww,aa,11/2/2023,sick,waiting for evaluation
+2105023,maryam,alhussaini,12/5/2023
+2105565,najiah,hijazi,12/5/2023
+2133445,Amal,Alotaibi,12/6/2023,unexcused
+2144556,wahaj,alotaibi,12/6/2023,fever,waiting for evaluation
+23456,zuz,bolaqi,12/6/2023
+1805023,amal,alghamdi,12/6/2023,sick,waiting for evaluation
+1505023,muruj,gaith,12/6/2023,very sick,waiting for evaluation

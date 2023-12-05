@@ -27,7 +27,7 @@ public class Parent extends User {
     public static void viewExcuseStatus(String studentID, String date) {
 
         //find the absence assoiciated with the student id and date
-        Absence absence = FileManagement.getAbsenceForAdmin(studentID, date);
+        Absence absence = FileManagement.getAbsenceWExcuse(studentID, date);
 
         // Check if absence was found
         if (absence != null) {
@@ -35,12 +35,8 @@ public class Parent extends User {
             //get excuse status
             String status = absence.getExcuse().getStatus();
 
-            //check if the excuse was evaluated
-            if (!"waiting for evaluation".equals(status)) {
-                System.out.println("The excuse status after evaluating the reason of absence is: " + status);
-            } else {
-                System.out.println("The excuse hasn't been evaluated yet");
-            }
+            System.out.println("The excuse status is: " + status);
+            
         }
     }
     //---------------------------------------------------------------------------------------------------
