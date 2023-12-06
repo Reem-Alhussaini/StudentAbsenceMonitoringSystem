@@ -24,7 +24,7 @@ public class Admin extends User {
             if(excuse != null){
                 
                 // Step 3: Display reason for absence and current status of the excuse
-                System.out.println("Reason for absence: " + excuse.getReason());
+                System.out.println("\nReason for absence: " + excuse.getReason());
                 System.out.println("Current status: " + excuse.getStatus());
 
                 // update the excuse status "only if" the excuse was not evaluated yet

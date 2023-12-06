@@ -23,3 +23,4 @@
 23456,zuz,bolaqi,12/6/2023
 1805023,amal,alghamdi,12/6/2023,sick,waiting for evaluation
 1505023,muruj,gaith,12/6/2023,very sick,waiting for evaluation
+1205023,ali,omar,12/6/2023,very sick,accepted

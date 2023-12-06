@@ -268,12 +268,14 @@ public class FileManagement {
 
                         if (date.equals(tokens[token])) {
 
-                            System.out.println("Date of absence: " + date);
+                            System.out.println("\nDate of absence: " + date);
                             int reason = token + 1; 
                             int status = token + 2;
+                            int id = token - 3;
+                            System.out.println("Student ID: " + tokens[id]);
                             System.out.println("Reason for absence: " + tokens[reason]);
                             try {
-                                System.out.println("Current status : " + tokens[status]);
+                                System.out.println("Current status : " + tokens[status] +"\n");
 
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 System.out.println("ArrayIndexOutOfBoundsException");
@@ -305,30 +307,26 @@ public class FileManagement {
             while ((line = reader.readLine()) != null) {
 
                 String[] tokens = line.split(",", 0);
-                boolean found =false;
+                
                 for (int token = 0; token < tokens.length; token++) {
 
                     if (studentID.equals(tokens[token]) && date.equals(tokens[token + 3])) {
-                        found = true;
+                        
                         String F_name = tokens[token + 1];
                         String L_name = tokens[token + 2];
                         Student student = new Student(F_name, L_name, studentID);
 
-                        if(!tokens[token+4].equals("unexcused")){
-                            String status = tokens[token + 4];
-                            String reason = tokens[token + 5];
+                        if(!tokens[token+5].equals("unexcused")){
+                            String status = tokens[token + 5];
+                            String reason = tokens[token + 4];
                             Excuse excuse = new Excuse(reason, status);
                             return new Absence(student, date, excuse);
                         }
-                        else if (tokens[token+4].equals("unexcused")) {
+                        else if (tokens[token+5].equals("unexcused")) {
                             System.out.println("No excuse was submitted for this absence within 48 hours. Unexcused Absence");
                             return null;
                         } 
                     }
-                }
-                if(found == false){
-                    System.out.println("couldent find an excuse with the provided data");
-                    break;
                 }
             }
         } catch (IOException e) {
