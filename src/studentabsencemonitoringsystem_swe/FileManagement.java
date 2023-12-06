@@ -327,7 +327,7 @@ public class FileManagement {
                     }
                 }
                 if(found == false){
-                    System.out.println("couldent find an absence with the provided data");
+                    System.out.println("couldent find an excuse with the provided data");
                     break;
                 }
             }
