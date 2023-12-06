@@ -1,31 +1,38 @@
 package studentabsencemonitoringsystem_swe;
 
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.*;
+//import org.junit.jupiter.api.Test;
 
 
 import java.util.Scanner;
+import java.util.Scanner;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 
 public class AbsenceTest {
 
-    @BeforeAll
+    //@BeforeAll
     public static void setUpClass() {
         // Setup code that runs once before any test method
     }
 
-    @AfterAll
+    //@AfterAll
     public static void tearDownClass() {
         // Cleanup code that runs once after all test methods
     }
 
-    @BeforeEach
+    //@BeforeEach
     public void setUp() {
         // Setup code that runs before each test method
     }
 
-    @AfterEach
+    //@AfterEach
     public void tearDown() {
         // Cleanup code that runs after each test method
     }
