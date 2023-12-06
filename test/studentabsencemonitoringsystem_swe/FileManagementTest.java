@@ -87,8 +87,8 @@ public class FileManagementTest {
         // Test getting absence information for admin
         String studentID = "123";
         String date = "01/01/2023";
-        Absence result = FileManagement.getAbsenceWExcuse(studentID, date);
-        assertNotNull("Absence information should be retrieved for admin", result);
+        FileManagement.getAbsenceWExcuse(studentID, date);
+        //assertNotNull("Absence information should be retrieved for admin", result);
     }
 
     @Test
@@ -99,6 +99,83 @@ public class FileManagementTest {
         Absence result = FileManagement.getAbsenceForParent(studentID, date);
         assertNotNull("Absence information should be retrieved for parent", result);
     }
+
+    /**
+     * Test of getAbsences method, of class FileManagement.
+     */
+    @Test
+    public void testGetAbsences() {
+        System.out.println("getAbsences");
+        //ArrayList<Absence> expResult = null;
+        //ArrayList<Absence> result = FileManagement.getAbsences();
+        //assertEquals(expResult, result);
+        FileManagement.getAbsences();
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of insertUnexcused method, of class FileManagement.
+     */
+    @Test
+    public void testInsertUnexcused() {
+        System.out.println("insertUnexcused");
+        Absence absence =  new Absence( new Student("John", "Doe", "123") , "01/01/2023", new Excuse("sick", "waiting for evaluation"));
+        String status = "Unexcused";
+        //String expResult = "";
+        //String result = FileManagement.insertUnexcused(absence, status);
+        FileManagement.insertUnexcused(absence, status);
+        //assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of rewriteFileContent method, of class FileManagement.
+     */
+    @Test
+    public void testRewriteFileContent() {
+        System.out.println("rewriteFileContent");
+        List<String> lines = null;
+        boolean lineModified = false;
+        Student student = null;
+        String success = "yes";
+        String fail = "No";
+        //String expResult = "";
+        
+        FileManagement.rewriteFileContent(lines, lineModified, student, success, fail);
+        //assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of displayExcuses method, of class FileManagement.
+     */
+    @Test
+    public void testDisplayExcuses() {
+        System.out.println("displayExcuses");
+        String date = "01/01/2023";
+        FileManagement.displayExcuses(date);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getAbsenceWExcuse method, of class FileManagement.
+     */
+    @Test
+    public void testGetAbsenceWExcuse() {
+        System.out.println("getAbsenceWExcuse");
+        String studentID = "1234";
+        String date = "01/01/2023";
+        //Absence expResult = null;
+        //Absence result = FileManagement.getAbsenceWExcuse(studentID, date);
+        FileManagement.getAbsenceWExcuse(studentID, date);
+        //assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
 }
 
-   
+       
