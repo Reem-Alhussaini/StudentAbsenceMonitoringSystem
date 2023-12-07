@@ -24,3 +24,12 @@
 1805023,amal,alghamdi,12/6/2023,sick,waiting for evaluation
 1505023,muruj,gaith,12/6/2023,very sick,waiting for evaluation
 1205023,ali,omar,12/6/2023,very sick,accepted
+190456,elaf,ib,1/1/2023,sick,accepted
+2105999,Lama,Aljohani,14/4/2023,sick,accepted
+123,John,Doe,01/01/2023,sick,accepted
+123,John,Doe,01/01/2023,Unexcused
+123,John,Doe,01/01/2023,sick,waiting for evaluation
+123,John,Doe,01/01/2023
+2105999,Lama,Aljohani,AbsenceReason
+2105999,Lama,Aljohani,AbsenceReason
+1,d,f,1/1/1111,d,rejected

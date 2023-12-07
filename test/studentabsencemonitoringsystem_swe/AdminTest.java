@@ -38,9 +38,7 @@ public class AdminTest {
         Student student = new Student("Lama", "Aljohani", "2105999");
         Excuse excuse = new Excuse("sick", "waiting for evaluation");
         Absence absence = new Absence(student, "AbsenceReason", excuse);
-
         try {
-
             Admin.registerAbsence(absence, student);
         } catch (IOException e) {
 

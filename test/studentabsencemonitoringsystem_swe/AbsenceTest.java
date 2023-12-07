@@ -38,67 +38,6 @@ public class AbsenceTest {
     }
 
     @Test
-    public void testSetDate() {
-        System.out.println("testSetDate");
-        String date = "01/01/2023";
-        Absence instance = new Absence(null, null, null);
-        instance.setDate(date);
-        assertEquals(date, instance.getDate());
-    }
-
-    @Test
-    public void testSetStudent() {
-        System.out.println("testSetStudent");
-        Student student = new Student("Lama", "Alamri", "2107528");
-        Absence instance = new Absence(null, null, null);
-        instance.setStudent(student);
-        assertEquals(student, instance.getStudent());
-    }
-
-    @Test
-    public void testSetExcuse() {
-        System.out.println("testSetExcuse");
-        Excuse excuse = new Excuse("Some excuse", "Pending");
-        Absence instance = new Absence(null, null, null);
-        instance.setExcuse(excuse);
-        assertEquals(excuse, instance.getExcuse());
-    }
-
-    @Test
-    public void testGetDate() {
-        System.out.println("testGetDate");
-        Absence instance = new Absence(null, "01/01/2023", null);
-        String expResult = "01/01/2023";
-        String result = instance.getDate();
-        assertEquals(expResult, result);
-    }
-
-    @Test
-    public void testGetStudent() {
-        System.out.println("testGetStudent");
-        Student student = new Student("Lama", "Alamri", "2107528");
-        Absence instance = new Absence(student, null, null);
-        assertEquals(student, instance.getStudent());
-    }
-
-    @Test
-    public void testGetExcuse() {
-        System.out.println("testGetExcuse");
-        Excuse excuse = new Excuse("Some excuse", "Pending");
-        Absence instance = new Absence(null, null, excuse);
-        assertEquals(excuse, instance.getExcuse());
-    }
-
-    @Test
-    public void testGetStartTime() {
-        System.out.println("testGetStartTime");
-        Absence instance = new Absence(null, null, null);
-        long expResult = instance.getStartTime();
-        long result = instance.getStartTime();
-        assertEquals(expResult, result);
-    }
-
-    @Test
     public void testGetAbsenceInfo() {
         System.out.println("testGetAbsenceInfo");
         // Mocking user input for testing

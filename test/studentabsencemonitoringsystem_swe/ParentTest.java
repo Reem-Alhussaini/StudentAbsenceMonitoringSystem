@@ -46,13 +46,8 @@ public class ParentTest {
         String studentID = "2106814";
         String date = "3/11/2023";
         String reason = "Medical appointment";
-        //FileManagement.insertExcuse
-        
-        //Parent.SubmitExuse(studentID, date, reason);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
         Parent.submitExcuse(studentID, date, reason);
-        //assertEquals("excuse added sucessfully", result);
+       
     }
 
     /**
