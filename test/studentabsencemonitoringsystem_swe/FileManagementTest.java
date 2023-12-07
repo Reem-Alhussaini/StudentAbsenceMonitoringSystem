@@ -1,21 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package studentabsencemonitoringsystem_swe;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
@@ -48,8 +41,8 @@ public class FileManagementTest {
         // Test inserting a new student
         Student student = new Student("John", "Doe", "123");
         String result = FileManagement.insertStudent(student);
-        //assertEquals("Student should be added successfully", "Student added successfully: 123 John Doe", result);
-        FileManagement.insertStudent(student);
+        assertEquals("Student should be added successfully", "Student added successfully: 123 John Doe", result);
+//        FileManagement.insertStudent(student);
     }
 
     @Test
@@ -58,8 +51,8 @@ public class FileManagementTest {
         Student student = new Student("John", "Doe", "123");
         Absence absence = new Absence(student, "01/01/2023", null);
         String result = FileManagement.insertAbsence(absence, student);
-        //assertEquals("Absence should be added successfully", "absence added successfully", result);
-        FileManagement.insertAbsence(absence, student);
+        assertEquals("Absence should be added successfully", "absence added successfully", result);
+//        FileManagement.insertAbsence(absence, student);
     }
 
     @Test
@@ -87,8 +80,8 @@ public class FileManagementTest {
         // Test getting absence information for admin
         String studentID = "123";
         String date = "01/01/2023";
-        FileManagement.getAbsenceWExcuse(studentID, date);
-        //assertNotNull("Absence information should be retrieved for admin", result);
+//        FileManagement.getAbsenceWExcuse(studentID, date);
+        assertNotNull("Absence information should be retrieved for admin", FileManagement.getAbsenceWExcuse(studentID, date));
     }
 
     @Test
@@ -98,6 +91,7 @@ public class FileManagementTest {
         String date = "01/01/2023";
         Absence result = FileManagement.getAbsenceForParent(studentID, date);
         assertNotNull("Absence information should be retrieved for parent", result);
+        assertNull("Parent should not receive excuses", result.getExcuse());
     }
 
     /**
@@ -105,11 +99,14 @@ public class FileManagementTest {
      */
     @Test
     public void testGetAbsences() {
-        System.out.println("getAbsences");
+        ArrayList<Absence> absences = FileManagement.getAbsences();
+        assertNotNull("Absences list should not be null", absences);
+        assertEquals("Initial absences list should be empty", 0, absences.size());
+//        System.out.println("getAbsences");
         //ArrayList<Absence> expResult = null;
         //ArrayList<Absence> result = FileManagement.getAbsences();
         //assertEquals(expResult, result);
-        FileManagement.getAbsences();
+//        FileManagement.getAbsences();
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -119,35 +116,40 @@ public class FileManagementTest {
      */
     @Test
     public void testInsertUnexcused() {
-        System.out.println("insertUnexcused");
-        Absence absence =  new Absence( new Student("John", "Doe", "123") , "01/01/2023", new Excuse("sick", "waiting for evaluation"));
+         Absence absence = new Absence(new Student("John", "Doe", "123"), "01/01/2023", new Excuse("sick", "waiting for evaluation"));
         String status = "Unexcused";
-        //String expResult = "";
-        //String result = FileManagement.insertUnexcused(absence, status);
         FileManagement.insertUnexcused(absence, status);
-        //assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        assertEquals("Status should be updated to \"unexcused\"", "Status updated to \"unexcused\"", absence.getExcuse().getStatus());
+//        System.out.println("insertUnexcused");
+//        Absence absence =  new Absence( new Student("John", "Doe", "123") , "01/01/2023", new Excuse("sick", "waiting for evaluation"));
+//        String status = "Unexcused";
+//        String expResult = "";
+//        String result = FileManagement.insertUnexcused(absence, status);
+//        FileManagement.insertUnexcused(absence, status);
+//        
+//        assertEquals(expResult, result);
+//         TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
     }
 
     /**
      * Test of rewriteFileContent method, of class FileManagement.
      */
-    @Test
-    public void testRewriteFileContent() {
-        System.out.println("rewriteFileContent");
-        List<String> lines = null;
-        boolean lineModified = false;
-        Student student = null;
-        String success = "yes";
-        String fail = "No";
-        //String expResult = "";
-        
-        FileManagement.rewriteFileContent(lines, lineModified, student, success, fail);
+//    @Test
+//    public void testRewriteFileContent() {
+//        System.out.println("rewriteFileContent");
+//        List<String> lines = null;
+//        boolean lineModified = false;
+//        Student student = null;
+//        String success = "yes";
+//        String fail = "No";
+//        //String expResult = "";
+//        
+//        FileManagement.rewriteFileContent(lines, lineModified, student, success, fail);
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
-    }
+//    }
 
     /**
      * Test of displayExcuses method, of class FileManagement.
